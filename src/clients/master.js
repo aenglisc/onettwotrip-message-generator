@@ -3,7 +3,10 @@ import highlight from '../utils';
 
 const generateTask = () => `${word()}-${word()}-${word()}`;
 
-const sendTask = (client) => {
+const sendTask = (client, firstcall = false) => {
+  if (firstcall) {
+    console.log(highlight(`Master ${process.pid} is now generating tasks`));
+  }
   const task = generateTask();
   client
     .multi()
@@ -19,7 +22,4 @@ const sendTask = (client) => {
     });
 };
 
-export default (client) => {
-  console.log(highlight(`Master ${process.pid} is now generating tasks`));
-  sendTask(client);
-};
+export default client => sendTask(client, true);

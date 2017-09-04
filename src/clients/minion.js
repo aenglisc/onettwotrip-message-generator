@@ -3,7 +3,11 @@ import highlight from '../utils';
 
 const isErroneous = () => Math.random() < 0.05;
 
-const getTask = client => client
+const getTask = (client, firstCall = false) => {
+  if (firstCall) {
+    console.log(highlight(`Minion ${process.pid} is now processing tasks`));
+  }
+  client
   .multi()
   .exists('master')
   .rpop('tasks')
@@ -27,9 +31,7 @@ const getTask = client => client
       master(client);
     }
   });
-
-export default (client) => {
-  console.log(highlight(`Minion ${process.pid} is now processing tasks`));
-  getTask(client);
 };
+
+export default client => getTask(client, true);
 
