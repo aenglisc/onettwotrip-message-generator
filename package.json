@@ -1,5 +1,5 @@
 {
-  "name": "onettwotrip-message-generator",
+  "name": "onetwotrip-message-generator",
   "version": "1.0.0",
   "description": "Message generators, a test task for OneTwoTrip!",
   "main": "/src/index.js",
