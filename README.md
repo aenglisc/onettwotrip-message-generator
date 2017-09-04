@@ -1,4 +1,4 @@
-# onettwotrip-message-generator
+# onetwotrip-message-generator
 
 [![Code Climate](https://codeclimate.com/github/aenglisc/onettwotrip-message-generator/badges/gpa.svg)](https://codeclimate.com/github/aenglisc/onettwotrip-message-generator)
 [![Issue Count](https://codeclimate.com/github/aenglisc/onettwotrip-message-generator/badges/issue_count.svg)](https://codeclimate.com/github/aenglisc/onettwotrip-message-generator)
