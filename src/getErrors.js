@@ -9,14 +9,12 @@ export default client => client
       throw new Error(error);
     }
     const errorCount = data[0].length;
+    const hasErrors = errorCount && errorCount > 0;
 
-    if (errorCount && errorCount > 0) {
-      console.log(highlight(`${errorCount} errors have been found`));
-    } else {
-      console.log(highlight('No errors have been found'));
-    }
+    console.log(highlight(`${hasErrors ? errorCount + 1 : 'No'} errors have been found`));
 
     data[0].forEach((item, index) => console.log(`${index}: ${item}`));
+
     console.log(highlight('Finished'));
     process.exit(0);
   });

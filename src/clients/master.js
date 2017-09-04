@@ -10,7 +10,6 @@ const sendTask = (client, firstcall = false) => {
   const task = generateTask();
   client
     .multi()
-    .get('master')
     .set('master', process.pid, 'PX', 1501)
     .rpush('tasks', task)
     .exec((err) => {
