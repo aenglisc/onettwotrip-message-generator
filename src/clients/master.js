@@ -1,4 +1,5 @@
 import word from 'random-words';
+import highlight from '../utils';
 
 const generateTask = () => `${word()}-${word()}-${word()}`;
 
@@ -18,4 +19,7 @@ const sendTask = (client) => {
     });
 };
 
-export default client => sendTask(client);
+export default (client) => {
+  console.log(highlight(`Master ${process.pid} is now generating tasks`));
+  sendTask(client);
+};
