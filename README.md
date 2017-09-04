@@ -1,8 +1,8 @@
-# onettwotrip-message-generator
+# onetwotrip-message-generator
 
-[![Code Climate](https://codeclimate.com/github/aenglisc/onettwotrip-message-generator/badges/gpa.svg)](https://codeclimate.com/github/aenglisc/onettwotrip-message-generator)
-[![Issue Count](https://codeclimate.com/github/aenglisc/onettwotrip-message-generator/badges/issue_count.svg)](https://codeclimate.com/github/aenglisc/onettwotrip-message-generator)
-[![Build Status](https://travis-ci.org/aenglisc/onettwotrip-message-generator.svg?branch=master)](https://travis-ci.org/aenglisc/onettwotrip-message-generator)
+[![Code Climate](https://codeclimate.com/github/aenglisc/onetwotrip-message-generator/badges/gpa.svg)](https://codeclimate.com/github/aenglisc/onetwotrip-message-generator)
+[![Issue Count](https://codeclimate.com/github/aenglisc/onetwotrip-message-generator/badges/issue_count.svg)](https://codeclimate.com/github/aenglisc/onetwotrip-message-generator)
+[![Build Status](https://travis-ci.org/aenglisc/onetwotrip-message-generator.svg?branch=master)](https://travis-ci.org/aenglisc/onetwotrip-message-generator)
 
 Message generators, a test for OneTwoTrip!
 
@@ -15,3 +15,5 @@ npm install -g
 
 binary:
 genmsg
+
+[![asciicast](https://asciinema.org/a/AmBObmUtfahVIO6JpxWAEH7Fd.png)](https://asciinema.org/a/AmBObmUtfahVIO6JpxWAEH7Fd)
