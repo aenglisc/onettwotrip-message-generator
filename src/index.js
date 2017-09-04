@@ -2,7 +2,9 @@ import client from 'redis';
 import getErrors from './getErrors';
 import dispatch from './clients';
 
+// predicate
 const getErrorsOption = process.argv[2] === '--getErrors';
 
+// check get errors with the --getErrors option
 export default () => (getErrorsOption ? getErrors(client.createClient())
                                       : dispatch(client.createClient()));
