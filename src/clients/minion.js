@@ -12,10 +12,8 @@ const getTask = (client, firstCall = false) => {
   }
   client
   .multi()
-  // check for a master
-  .exists('master')
-  // fetch a task
-  .rpop('tasks')
+  .exists('master') // check for a master
+  .rpop('tasks')    // fetch a task
   .exec((error, data) => {
     if (error) {
       throw new Error(error);
