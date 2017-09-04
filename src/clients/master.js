@@ -19,9 +19,4 @@ const sendTask = (client) => {
     });
 };
 
-const init = (client) => {
-  console.log(highlight(`Master ${process.pid} is now generating tasks`));
-  return sendTask(client);
-};
-
-export default client => init(client);
+export default client => sendTask(client);

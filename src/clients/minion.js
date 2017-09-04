@@ -28,9 +28,4 @@ const getTask = client => client
     }
   });
 
-const init = (client) => {
-  console.log(highlight(`Minion ${process.pid} is now processing tasks`));
-  return getTask(client);
-};
-
-export default client => init(client);
+export default client => getTask(client);
