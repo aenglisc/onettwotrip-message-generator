@@ -1,5 +1,4 @@
 import word from 'random-words';
-import highlight from '../utils';
 
 const generateTask = () => `${word()}-${word()}-${word()}`;
 
