@@ -11,7 +11,6 @@ export default client => client
       throw new Error(error);
     }
 
-    // predicates
     const errorCount = data[0].length;
     const hasErrors = errorCount && errorCount > 0;
 

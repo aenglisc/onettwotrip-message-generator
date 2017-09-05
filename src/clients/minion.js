@@ -19,7 +19,6 @@ const getTask = (client, firstCall = false) => {
         throw new Error(error);
       }
 
-      // predicates
       const masterPresent = data[0] === 1;
       const task = data[1];
 
