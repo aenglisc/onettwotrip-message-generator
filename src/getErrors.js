@@ -2,10 +2,8 @@ import highlight from './utils';
 
 export default client => client
   .multi()
-  // get all errors
-  .lrange('errors', 0, -1)
-  // clear all errors
-  .ltrim('errors', 1, 0)
+  .lrange('errors', 0, -1)  // get all errors
+  .ltrim('errors', 1, 0)    // clear all errors
   .exec((error, data) => {
     if (error) {
       throw new Error(error);
