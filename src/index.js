@@ -5,6 +5,6 @@ import dispatch from './clients';
 // predicate
 const getErrorsOption = process.argv[2] === '--getErrors';
 
-// check get errors with the --getErrors option
+// get errors with the --getErrors option, otherwise run normally
 export default () => (getErrorsOption ? getErrors(client.createClient())
                                       : dispatch(client.createClient()));
