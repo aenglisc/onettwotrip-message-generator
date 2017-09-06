@@ -6,7 +6,7 @@ import highlight from '../utils';
 const genTask = () => `${word()}-${word()}-${word()}`;
 
 // recursively generate and send tasks
-const sendTasks = ({ name, client }, firstCall = false, task = genTask()) => client
+const sendTask = ({ name, client }, firstCall = false, task = genTask()) => client
   .get('master', (err, master) => {
     if (err) {
       throw new Error(err);
@@ -19,11 +19,11 @@ const sendTasks = ({ name, client }, firstCall = false, task = genTask()) => cli
       client.rpush('tasks', task);
 
       console.log(`New task by ${name}: ${task}`);
-      setTimeout(sendTasks, 500, { name, client });
+      setTimeout(sendTask, 500, { name, client });
     } else {
       console.log(highlight(`Master ${master} was found, ${name} is moving back to minion status`));
       minion({ name, client });
     }
   });
 
-export default instance => sendTasks(instance, true);
+export default instance => sendTask(instance, true);
