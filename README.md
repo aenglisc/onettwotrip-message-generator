@@ -16,4 +16,4 @@ npm install -g
 binary:
 genmsg
 
-<script type="text/javascript" src="https://asciinema.org/a/VdTtMwAtzjvPSUJGrlgIXB5eE.js" id="asciicast-VdTtMwAtzjvPSUJGrlgIXB5eE" async></script>
+[![asciicast](https://asciinema.org/a/VdTtMwAtzjvPSUJGrlgIXB5eE.png)](https://asciinema.org/a/VdTtMwAtzjvPSUJGrlgIXB5eE)
