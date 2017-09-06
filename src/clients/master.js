@@ -1,27 +1,29 @@
 import word from 'random-words';
+import minion from './minion';
 import highlight from '../utils';
 
 // generates three random words
-const generateTask = () => `${word()}-${word()}-${word()}`;
+const genTask = () => `${word()}-${word()}-${word()}`;
 
 // recursively generate and send tasks
-const sendTasks = (client, firstCall = false) => {
-  // notify on master status
-  if (firstCall) {
-    console.log(highlight(`Master ${process.pid} is now generating tasks`));
-  }
-  const task = generateTask();
-  client
-    .multi()
-    .set('master', process.pid, 'PX', 1501) // set master marker
-    .rpush('tasks', task)                   // send task
-    .exec((err) => {
-      if (err) {
-        throw new Error(err);
+const sendTasks = ({ name, client }, firstCall = false, task = genTask()) => client
+  .get('master', (err, master) => {
+    if (err) {
+      throw new Error(err);
+    }
+    if (!master || (master && master === name)) {
+      if (firstCall) {
+        console.log(highlight(`Master ${name} is now generating tasks`));
       }
-      console.log(`New task by ${process.pid}: ${task}`);
-      setTimeout(sendTasks, 500, client);
-    });
-};
+      client.set('master', name, 'PX', 1501);
+      client.rpush('tasks', task);
 
-export default client => sendTasks(client, true);
+      console.log(`New task by ${name}: ${task}`);
+      setTimeout(sendTasks, 500, { name, client });
+    } else {
+      console.log(highlight(`Master ${master} was found, ${name} is moving back to minion status`));
+      minion({ name, client });
+    }
+  });
+
+export default instance => sendTasks(instance, true);

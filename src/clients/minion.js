@@ -5,42 +5,42 @@ import highlight from '../utils';
 const isErroneous = () => Math.random() < 0.05;
 
 // recursively receive and process tasks
-const getTask = (client, firstCall = false) => {
-  // notify on minion status
-  if (firstCall) {
-    console.log(highlight(`Minion ${process.pid} is now processing tasks`));
-  }
-  client
-    .multi()
-    .exists('master') // check for a master
-    .rpop('tasks')    // fetch a task
-    .exec((error, data) => {
-      if (error) {
-        throw new Error(error);
-      }
+const getTask = ({ name, client }, firstCall = false) => client
+  .multi()
+  .exists('master') // check for a master
+  .rpop('tasks')    // fetch a task
+  .exec((error, data) => {
+    if (error) {
+      throw new Error(error);
+    }
+    // notify on minion status
+    if (firstCall) {
+      console.log(highlight(`Minion ${process.pid} is now processing tasks`));
+    }
 
-      const masterPresent = data[0] === 1;
-      const task = data[1];
+    const masterPresent = data[0] === 1;
+    const task = data[1];
 
-      // avoid null messages
-      if (task) {
-        // error generator
-        if (isErroneous()) {
-          console.log(highlight(`Minion ${process.pid} has found an error in ${task}`));
-          client.rpush('errors', task);
-        } else {
-          console.log(`Task done by ${process.pid}: ${task}`);
-        }
-      }
-
-      // promote to master if no master exists
-      if (masterPresent) {
-        setTimeout(getTask, 500, client);
+    // avoid null messages
+    if (task) {
+      // error generator
+      if (isErroneous()) {
+        console.log(highlight(`Minion ${name} has found an error in ${task}`));
+        client.rpush('errors', task);
       } else {
-        master(client);
+        console.log(`Task done by ${name}: ${task}`);
       }
-    });
-};
+    }
 
-export default client => getTask(client, true);
+    // promote to master if no master exists
+    if (masterPresent) {
+      setTimeout(getTask, 1, { name, client });
+    } else {
+      console.log(highlight(`No master was found, ${name} is moving to master status`));
+      client.set('master', name, 'PX', 1501);
+      master({ name, client });
+    }
+  });
+
+export default instance => getTask(instance, true);
 
