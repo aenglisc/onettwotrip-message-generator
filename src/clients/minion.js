@@ -36,9 +36,19 @@ const getTask = ({ name, client }, firstCall = false) => client
     if (masterPresent) {
       setTimeout(getTask, 1, { name, client });
     } else {
-      console.log(highlight(`No master was found, ${name} is moving to master status`));
       client.set('master', name, 'PX', 1501);
-      master({ name, client });
+      // multiple instances can detect the absence of a master
+      // the last one to do it is promoted
+      setTimeout(() => {
+        client.get('master', (err, current) => {
+          if (name === current) {
+            console.log(highlight(`No master was found, ${name} is moving to master status`));
+            master({ name, client });
+          } else {
+            getTask({ name, client });
+          }
+        });
+      }, 1);
     }
   });
 
