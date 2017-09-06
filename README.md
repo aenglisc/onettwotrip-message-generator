@@ -16,4 +16,4 @@ npm install -g
 binary:
 genmsg
 
-[![asciicast](https://asciinema.org/a/VdTtMwAtzjvPSUJGrlgIXB5eE.png)](https://asciinema.org/a/VdTtMwAtzjvPSUJGrlgIXB5eE)
+[![asciicast](https://asciinema.org/a/yYEblFYk0HTLbyqV0iw5phHaP.png)](https://asciinema.org/a/yYEblFYk0HTLbyqV0iw5phHaP)
