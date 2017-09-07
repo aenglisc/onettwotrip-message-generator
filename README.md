@@ -16,4 +16,4 @@ npm install -g
 binary:
 genmsg
 
-![gif](https://image.ibb.co/nAJtmv/test.gif)
+<img src ="https://media.giphy.com/media/3ohhwBwllTr26ZfEw8/giphy.gif">
