@@ -34,7 +34,7 @@ const getTask = ({ name, client }, firstCall = false) => client
 
     // promote to master if no master exists
     if (masterPresent) {
-      setTimeout(getTask, 1, { name, client });
+      setTimeout(getTask, 50, { name, client });
     } else {
       client.set('master', name, 'PX', 1501);
       // multiple instances can detect the absence of a master
@@ -48,7 +48,7 @@ const getTask = ({ name, client }, firstCall = false) => client
             getTask({ name, client });
           }
         });
-      }, 1);
+      }, 50);
     }
   });
 
