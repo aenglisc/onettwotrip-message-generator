@@ -15,7 +15,7 @@ const getTask = ({ name, client }, firstCall = false) => client
     }
     // notify on minion status
     if (firstCall) {
-      console.log(highlight(`Minion ${process.pid} is now processing tasks`));
+      console.log(highlight(`Minion ${name} is now processing tasks`));
     }
 
     const masterPresent = data[0] === 1;

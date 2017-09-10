@@ -10,7 +10,7 @@ export default instance => instance.client
     if (message === 1) {
       minion(instance);
     } else {
-      instance.client.set('master', process.pid, 'PX', 1501);
+      instance.client.set('master', instance.name, 'PX', 1501);
       master(instance);
     }
   });
