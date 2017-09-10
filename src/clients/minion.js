@@ -7,7 +7,7 @@ const isErroneous = () => Math.random() < 0.05;
 // recursively receive and process tasks
 const getTask = ({ name, client }, firstCall = false) => client
   .multi()
-  .exists('master') // check for a master
+  .get('master') // check for a master
   .rpop('tasks')    // fetch a task
   .exec((error, data) => {
     if (error) {
@@ -18,7 +18,7 @@ const getTask = ({ name, client }, firstCall = false) => client
       console.log(highlight(`Minion ${name} is now processing tasks`));
     }
 
-    const masterPresent = data[0] === 1;
+    const currentMaster = data[0];
     const task = data[1];
 
     // avoid null messages
@@ -32,23 +32,16 @@ const getTask = ({ name, client }, firstCall = false) => client
       }
     }
 
-    // promote to master if no master exists
-    if (masterPresent) {
-      setTimeout(getTask, 50, { name, client });
+    // move to master if master id matches client id
+    if (currentMaster && currentMaster === name) {
+      console.log(highlight(`No master was found, ${name} is moving to master status`));
+      master({ name, client });
     } else {
-      client.set('master', name, 'PX', 1501);
-      // multiple instances can detect the absence of a master
-      // the last one to do it is promoted
-      setTimeout(() => {
-        client.get('master', (err, current) => {
-          if (name === current) {
-            console.log(highlight(`No master was found, ${name} is moving to master status`));
-            master({ name, client });
-          } else {
-            getTask({ name, client });
-          }
-        });
-      }, 50);
+      // promote to master if no master exists
+      if (!currentMaster) {
+        client.set('master', name, 'PX', 1501, 'NX');
+      }
+      setTimeout(getTask, 1, { name, client });
     }
   });
 
