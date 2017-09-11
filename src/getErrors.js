@@ -11,8 +11,12 @@ export default client => client
 
     const errorCount = data[0].length;
     const hasErrors = errorCount && errorCount > 0;
+    const oneError = errorCount && errorCount === 1;
 
-    console.log(highlight(`${hasErrors ? errorCount : 'No'} errors have been found`));
+    const logCount = hasErrors ? errorCount : 'No';
+    const plural = oneError ? ' has' : 's have';
+
+    console.log(highlight(`${logCount} error${plural} been found`));
 
     data[0].forEach((item, index) => console.log(`${index + 1}: ${item}`));
 
