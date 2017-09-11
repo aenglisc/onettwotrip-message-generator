@@ -10,13 +10,16 @@ export default client => client
     }
 
     const errorCount = data[0].length;
+
+    // predicates
     const hasErrors = errorCount && errorCount > 0;
     const oneError = errorCount && errorCount === 1;
 
+    // string modifiers
     const logCount = hasErrors ? errorCount : 'No';
-    const plural = oneError ? ' has' : 's have';
+    const singularOrPlural = oneError ? ' has' : 's have';
 
-    console.log(highlight(`${logCount} error${plural} been found`));
+    console.log(highlight(`${logCount} error${singularOrPlural} been found`));
 
     data[0].forEach((item, index) => console.log(`${index + 1}: ${item}`));
 
